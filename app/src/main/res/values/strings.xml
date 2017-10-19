@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">FlickerDemo</string>
+
+    <string name="flickr_edit_text_hint">Search here</string>
+    <string name="flickr_edit_text_empty">Please enter search item</string>
+    <string name="flickr_image_url">http://farm%1$s.static.flickr.com/%2$s/%3$s_%4$s.jpg</string>
+    <string name="flickr_fetching_images">Fetching Images&#8230;</string>
+</resources>
