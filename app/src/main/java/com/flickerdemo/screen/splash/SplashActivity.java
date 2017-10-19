@@ -7,6 +7,7 @@ import com.flickerdemo.R;
 import com.flickerdemo.api.service.flicker.FlickerService;
 import com.flickerdemo.application.FlickerDemoApplication;
 import com.flickerdemo.application.scope.ScreenScope;
+import com.flickerdemo.screen.BaseActivity;
 import com.flickerdemo.util.ViewUtils;
 
 import javax.inject.Inject;
@@ -17,7 +18,7 @@ import dagger.Module;
 /**
  * Initialize Splash Presenter and View
  */
-public class SplashActivity extends AppCompatActivity {
+public class SplashActivity extends BaseActivity {
     @Inject
     protected SplashView mSplashView;
 

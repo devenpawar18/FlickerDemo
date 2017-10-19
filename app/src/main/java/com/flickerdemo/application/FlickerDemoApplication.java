@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.flickerdemo.api.service.flicker.FlickerService;
 import com.flickerdemo.application.scope.ApplicationScope;
+import com.flickerdemo.screen.BaseActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -127,7 +128,7 @@ public class FlickerDemoApplication extends Application {
             }
     )
     public static interface AppComponent {
-        public void inject(final FlickerDemoApplication pFlickerDemoApplication);
+        public void inject(final BaseActivity pBaseActivity);
 
         public FlickerDemoApplication provideLuxeApplication();
 
