@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.flickerdemo.R;
 import com.flickerdemo.api.model.Photo;
@@ -26,14 +27,14 @@ import timber.log.Timber;
 /**
  * HomeView - A Fragment which implements the HomeContract.View interface.
  */
-public class HomeView extends Fragment implements HomeContract.View {
+public class HomeView extends Fragment implements HomeContract.View, FlickerAdapter.OnListItemClickListener {
     @Inject
     protected HomePresenter mPresenter;
 
     @BindView(R.id.photo_recycler_view)
     protected RecyclerView mRecyclerView;
 
-    private FlickrAdapter mAdapter;
+    private FlickerAdapter mAdapter;
     private List<Photo> mPhotos = new ArrayList<>();
 
     @Inject
@@ -56,7 +57,8 @@ public class HomeView extends Fragment implements HomeContract.View {
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         this.mRecyclerView.setLayoutManager(gridLayoutManager);
-        this.mAdapter = new FlickrAdapter(this.mRecyclerView, this.mPhotos, R.layout.fragment_home_flicker_list_item, this.getHomeActivity());
+        this.mAdapter = new FlickerAdapter(this.mRecyclerView, this.mPhotos, R.layout.fragment_home_flicker_list_item, this.getHomeActivity());
+        this.mAdapter.setOnListClickListener(this);
         this.mRecyclerView.setAdapter(this.mAdapter);
 
         return view;
@@ -82,6 +84,11 @@ public class HomeView extends Fragment implements HomeContract.View {
     @Override
     public HomeActivity getHomeActivity() {
         return (HomeActivity) getActivity();
+    }
+
+    @Override
+    public void onItemClick(final Photo pPhoto, final int position) {
+        Toast.makeText(this.getView().getContext(), "Position clicked is " + position, Toast.LENGTH_SHORT).show();
     }
 
     @Override

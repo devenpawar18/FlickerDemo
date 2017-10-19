@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FlickrAdapter extends RecyclerView.Adapter<FlickrAdapter.FlickrViewHolder> implements View.OnClickListener {
+public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrViewHolder> implements View.OnClickListener {
     private List<Photo> mPhotos;
     private int mRowLayout;
     private Context mContext;
@@ -34,7 +34,7 @@ public class FlickrAdapter extends RecyclerView.Adapter<FlickrAdapter.FlickrView
         }
     }
 
-    public FlickrAdapter(RecyclerView pRecyclerView, List<Photo> mPhotos, int rowLayout, Context pContext) {
+    public FlickerAdapter(RecyclerView pRecyclerView, List<Photo> mPhotos, int rowLayout, Context pContext) {
         this.mRecyclerView = pRecyclerView;
         this.mPhotos = mPhotos;
         this.mRowLayout = rowLayout;
@@ -42,7 +42,7 @@ public class FlickrAdapter extends RecyclerView.Adapter<FlickrAdapter.FlickrView
     }
 
     @Override
-    public FlickrAdapter.FlickrViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FlickerAdapter.FlickrViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(mRowLayout, parent, false);
         view.setOnClickListener(this);
         return new FlickrViewHolder(view);

@@ -12,6 +12,8 @@ import com.google.gson.GsonBuilder;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.EventBusBuilder;
 
+import javax.inject.Inject;
+
 import dagger.Component;
 import dagger.Provides;
 import okhttp3.Cache;
@@ -19,6 +21,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import timber.log.Timber;
 
 public class FlickerDemoApplication extends Application {
     private static String BASE_URL = "https://api.flickr.com/";
@@ -26,6 +29,9 @@ public class FlickerDemoApplication extends Application {
     private static FlickerDemoApplication sInstance;
 
     private AppComponent mAppComponent;
+
+    @Inject
+    protected FlickerService mFLickerService;
 
     public static FlickerDemoApplication getApplication() {
         return FlickerDemoApplication.sInstance;
@@ -42,6 +48,8 @@ public class FlickerDemoApplication extends Application {
 
         this.mAppComponent = DaggerFlickerDemoApplication_AppComponent.builder()
                 .module(new Module(this)).build();
+
+        this.getAppComponent().inject(this);
     }
 
     public AppComponent getAppComponent() {
@@ -128,6 +136,8 @@ public class FlickerDemoApplication extends Application {
             }
     )
     public static interface AppComponent {
+        public void inject(final FlickerDemoApplication pFlickerDemoApplication);
+
         public void inject(final BaseActivity pBaseActivity);
 
         public FlickerDemoApplication provideLuxeApplication();
