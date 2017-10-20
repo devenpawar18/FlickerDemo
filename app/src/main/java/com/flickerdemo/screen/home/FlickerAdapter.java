@@ -16,39 +16,41 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrViewHolder> implements View.OnClickListener {
-    private List<Photo> mPhotos;
+public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrViewHolder> {
+    private static List<Photo> mPhotos;
     private int mRowLayout;
     private Context mContext;
+    private static OnListItemClickListener mOnListItemClickListener;
 
-    private OnListItemClickListener mOnListItemClickListener;
-
-    public static class FlickrViewHolder extends RecyclerView.ViewHolder {
+    public static class FlickrViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.image_flickr)
         ImageView mFlickrImage;
 
         public FlickrViewHolder(View pView) {
             super(pView);
             ButterKnife.bind(this, pView);
+
+            pView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(final View pView) {
+            Photo item = mPhotos.get(this.getLayoutPosition());
+            mOnListItemClickListener.onItemClick(item);
         }
     }
 
-    public FlickerAdapter(List<Photo> mPhotos, int rowLayout, Context pContext) {
-        this.mPhotos = mPhotos;
-        this.mRowLayout = rowLayout;
+    public FlickerAdapter(List<Photo> pPhotos, int pRowLayout, Context pContext, final OnListItemClickListener pOnListItemClickListener) {
+        mPhotos = pPhotos;
+        this.mRowLayout = pRowLayout;
         this.mContext = pContext;
+        mOnListItemClickListener = pOnListItemClickListener;
     }
 
     @Override
     public FlickerAdapter.FlickrViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final View view = LayoutInflater.from(parent.getContext()).inflate(mRowLayout, parent, false);
-        view.setOnClickListener(this);
         return new FlickrViewHolder(view);
-    }
-
-    @Override
-    public void onClick(final View pView) {
-        this.mOnListItemClickListener.onItemClick(pView);
     }
 
     @Override
@@ -63,11 +65,7 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
         return mPhotos.size();
     }
 
-    public void setOnListClickListener(OnListItemClickListener pOnListItemClickListener) {
-        this.mOnListItemClickListener = pOnListItemClickListener;
-    }
-
     public interface OnListItemClickListener {
-        void onItemClick(View pView);
+        void onItemClick(final Photo pPhoto);
     }
 }

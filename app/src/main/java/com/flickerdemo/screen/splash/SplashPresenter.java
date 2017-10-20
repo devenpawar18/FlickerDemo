@@ -41,9 +41,9 @@ public class SplashPresenter implements SplashContract.Presenter {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent mainIntent = new Intent(SplashPresenter.this.mSplashView.getSplashActivity(), HomeActivity.class);
-                SplashPresenter.this.mSplashView.getSplashActivity().startActivity(mainIntent);
-                SplashPresenter.this.mSplashView.getSplashActivity().finish();
+                Intent mainIntent = new Intent(mSplashView.getSplashActivity(), HomeActivity.class);
+                mSplashView.getSplashActivity().startActivity(mainIntent);
+                mSplashView.getSplashActivity().finish();
             }
         }, SPLASH_DISPLAY_LENGTH);
     }

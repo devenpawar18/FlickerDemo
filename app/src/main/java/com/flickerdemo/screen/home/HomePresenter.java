@@ -54,14 +54,14 @@ public class HomePresenter implements HomeContract.Presenter {
         final ISuccessCallback<PhotoInfo> successCallback = new ISuccessCallback<PhotoInfo>() {
             @Override
             public void accept(final PhotoInfo pPhotoInfo) {
-                HomePresenter.this.mHomeView.updateView(pPhotoInfo);
-                HomePresenter.this.mHomeView.getHomeActivity().getPopupManager().dismissProgress(PROGRESS_FETCH_TAG);
+                mHomeView.updateView(pPhotoInfo);
+                mHomeView.getHomeActivity().getPopupManager().dismissProgress(PROGRESS_FETCH_TAG);
             }
         };
         final IFailureCallback failureCallback = new IFailureCallback() {
             @Override
             public void accept(final Throwable pThrowable) {
-                Toast.makeText(HomePresenter.this.mHomeView.getContext(), "Failure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mHomeView.getContext(), "Failure", Toast.LENGTH_SHORT).show();
             }
         };
         this.mDisposables.add(ServiceUtils.defaults(fetchObservable, successCallback, failureCallback));

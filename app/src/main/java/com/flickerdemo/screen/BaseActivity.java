@@ -13,7 +13,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((FlickerDemoApplication) this.getApplication()).getAppComponent().inject(this);
+        FlickerDemoApplication.getApplication().getAppComponent().inject(this);
 
         this.mPopupManager = new PopupManager(this);
     }
