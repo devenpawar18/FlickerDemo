@@ -20,7 +20,6 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
     private List<Photo> mPhotos;
     private int mRowLayout;
     private Context mContext;
-    private RecyclerView mRecyclerView;
 
     private OnListItemClickListener mOnListItemClickListener;
 
@@ -34,8 +33,7 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
         }
     }
 
-    public FlickerAdapter(RecyclerView pRecyclerView, List<Photo> mPhotos, int rowLayout, Context pContext) {
-        this.mRecyclerView = pRecyclerView;
+    public FlickerAdapter(List<Photo> mPhotos, int rowLayout, Context pContext) {
         this.mPhotos = mPhotos;
         this.mRowLayout = rowLayout;
         this.mContext = pContext;
@@ -49,10 +47,8 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
     }
 
     @Override
-    public void onClick(final View v) {
-        final int itemPosition = this.mRecyclerView.getChildLayoutPosition(v);
-        Photo item = mPhotos.get(itemPosition);
-        this.mOnListItemClickListener.onItemClick(item, itemPosition);
+    public void onClick(final View pView) {
+        this.mOnListItemClickListener.onItemClick(pView);
     }
 
     @Override
@@ -72,6 +68,6 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
     }
 
     public interface OnListItemClickListener {
-        void onItemClick(Photo pPhoto, int position);
+        void onItemClick(View pView);
     }
 }

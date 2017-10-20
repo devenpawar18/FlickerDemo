@@ -1,19 +1,14 @@
 package com.flickerdemo.screen.splash;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import com.flickerdemo.R;
 import com.flickerdemo.api.service.flicker.FlickerService;
 import com.flickerdemo.application.FlickerDemoApplication;
-import com.flickerdemo.application.scope.ScreenScope;
 import com.flickerdemo.screen.BaseActivity;
 import com.flickerdemo.util.ViewUtils;
 
 import javax.inject.Inject;
-
-import dagger.Component;
-import dagger.Module;
 
 /**
  * Initialize Splash Presenter and View
@@ -31,9 +26,9 @@ public class SplashActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.mSplashComponent = DaggerSplashActivity_SplashComponent.builder()
+        this.mSplashComponent = DaggerSplashComponent.builder()
                 .appComponent(FlickerDemoApplication.getApplication().getAppComponent())
-                .splashModule(new SplashActivity.SplashModule()).build();
+                .splashModule(new SplashModule()).build();
 
         this.getSplashComponent().inject(this);
 
@@ -49,25 +44,5 @@ public class SplashActivity extends BaseActivity {
 
     public SplashComponent getSplashComponent() {
         return this.mSplashComponent;
-    }
-
-    @Module
-    public static class SplashModule {
-
-    }
-
-    @ScreenScope
-    @Component(
-            dependencies = {
-                    FlickerDemoApplication.AppComponent.class
-            },
-            modules = {
-                    SplashModule.class
-            }
-    )
-    public static interface SplashComponent extends FlickerDemoApplication.AppComponent {
-        public void inject(final SplashActivity pSplashActivity);
-
-        public void inject(final SplashView pSplashView);
     }
 }

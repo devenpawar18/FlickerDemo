@@ -6,6 +6,9 @@ import android.content.Context;
 import com.flickerdemo.api.service.flicker.FlickerService;
 import com.flickerdemo.application.scope.ApplicationScope;
 import com.flickerdemo.screen.BaseActivity;
+import com.flickerdemo.screen.app.AppComponent;
+import com.flickerdemo.screen.app.AppModule;
+import com.flickerdemo.screen.app.DaggerAppComponent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -24,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
 public class FlickerDemoApplication extends Application {
-    private static String BASE_URL = "https://api.flickr.com/";
+    public static String BASE_URL = "https://api.flickr.com/";
 
     private static FlickerDemoApplication sInstance;
 
@@ -46,108 +49,13 @@ public class FlickerDemoApplication extends Application {
         FlickerDemoApplication.sInstance = this;
         super.onCreate();
 
-        this.mAppComponent = DaggerFlickerDemoApplication_AppComponent.builder()
-                .module(new Module(this)).build();
+        this.mAppComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this)).build();
 
         this.getAppComponent().inject(this);
     }
 
     public AppComponent getAppComponent() {
         return this.mAppComponent;
-    }
-
-    @dagger.Module
-    public static class Module {
-        private final FlickerDemoApplication mFlickerDemoApplication;
-        private final EventBus mEventBus;
-
-        private final Gson mGson;
-
-        public Module(final FlickerDemoApplication pLuxeApplication) {
-            this.mFlickerDemoApplication = pLuxeApplication;
-
-            final EventBusBuilder eventBusBuilder = EventBus.builder();
-            eventBusBuilder.throwSubscriberException(true);
-            this.mEventBus = eventBusBuilder.build();
-
-            this.mGson = new GsonBuilder().create();
-        }
-
-        @Provides
-        @ApplicationScope
-        public FlickerDemoApplication provideLuxeApplication() {
-            return this.mFlickerDemoApplication;
-        }
-
-        @Provides
-        @ApplicationScope
-        public Context provideContext() {
-            return this.mFlickerDemoApplication;
-        }
-
-        @Provides
-        @ApplicationScope
-        public EventBus provideEventBus() {
-            return this.mEventBus;
-        }
-
-        @Provides
-        @ApplicationScope
-        public Cache provideOkHttpCache(Application application) {
-            int cacheSize = 10 * 1024 * 1024; // 10 MiB
-            Cache cache = new Cache(application.getCacheDir(), cacheSize);
-            return cache;
-        }
-
-        @Provides
-        @ApplicationScope
-        public Gson provideGson() {
-            return this.mGson;
-        }
-
-        @Provides
-        @ApplicationScope
-        public OkHttpClient provideOkHttpClient(Cache cache) {
-            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
-            logging.setLevel(HttpLoggingInterceptor.Level.BASIC);
-            OkHttpClient.Builder okHttpClient = new OkHttpClient.Builder();
-            okHttpClient.cache(cache);
-            okHttpClient.addInterceptor(logging);
-            return okHttpClient.build();
-        }
-
-        @Provides
-        @ApplicationScope
-        public Retrofit provideRetrofit(Gson gson, OkHttpClient okHttpClient) {
-            Retrofit retrofit = new Retrofit.Builder()
-                    .addConverterFactory(GsonConverterFactory.create(gson))
-                    .baseUrl(BASE_URL)
-                    .client(okHttpClient)
-                    .build();
-            return retrofit;
-        }
-    }
-
-
-    @ApplicationScope
-    @Component(
-            modules = {
-                    Module.class,
-            }
-    )
-    public static interface AppComponent {
-        public void inject(final FlickerDemoApplication pFlickerDemoApplication);
-
-        public void inject(final BaseActivity pBaseActivity);
-
-        public FlickerDemoApplication provideLuxeApplication();
-
-        public Context provideContext();
-
-        public EventBus provideEventBus();
-
-        public Gson provideGson();
-
-        public FlickerService provideFlickerService();
     }
 }

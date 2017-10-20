@@ -57,7 +57,7 @@ public class HomeView extends Fragment implements HomeContract.View, FlickerAdap
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         this.mRecyclerView.setLayoutManager(gridLayoutManager);
-        this.mAdapter = new FlickerAdapter(this.mRecyclerView, this.mPhotos, R.layout.fragment_home_flicker_list_item, this.getHomeActivity());
+        this.mAdapter = new FlickerAdapter(this.mPhotos, R.layout.fragment_home_flicker_list_item, this.getHomeActivity());
         this.mAdapter.setOnListClickListener(this);
         this.mRecyclerView.setAdapter(this.mAdapter);
 
@@ -87,8 +87,10 @@ public class HomeView extends Fragment implements HomeContract.View, FlickerAdap
     }
 
     @Override
-    public void onItemClick(final Photo pPhoto, final int position) {
-        Toast.makeText(this.getView().getContext(), "Position clicked is " + position, Toast.LENGTH_SHORT).show();
+    public void onItemClick(final View pView) {
+        final int itemPosition = this.mRecyclerView.getChildLayoutPosition(pView);
+        Photo item = mPhotos.get(itemPosition);
+        Toast.makeText(this.getView().getContext(), "Position clicked is " + itemPosition + " with name " + item.getTitle(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
