@@ -48,14 +48,15 @@ public class HomePresenter implements HomeContract.Presenter {
 
     @Override
     public void fetchPhotos() {
-        this.mHomeView.getHomeActivity().getPopupManager().showProgress(PROGRESS_FETCH_TAG, "Fetching Shit...");
+        final HomeActivity homeActivity = (HomeActivity) this.mHomeView.getContext();
+        homeActivity.getPopupManager().showProgress(PROGRESS_FETCH_TAG, "Fetching Shit...");
         Observable<PhotoInfo> fetchObservable = this.mFlickerService.getPhotoInfo(API_METHOD, API_KEY, API_FORMAT, API_NO_JSON_CALLBACK, "Deven", 1);
 
         final ISuccessCallback<PhotoInfo> successCallback = new ISuccessCallback<PhotoInfo>() {
             @Override
             public void accept(final PhotoInfo pPhotoInfo) {
                 mHomeView.updateView(pPhotoInfo);
-                mHomeView.getHomeActivity().getPopupManager().dismissProgress(PROGRESS_FETCH_TAG);
+                homeActivity.getPopupManager().dismissProgress(PROGRESS_FETCH_TAG);
             }
         };
         final IFailureCallback failureCallback = new IFailureCallback() {

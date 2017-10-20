@@ -15,8 +15,6 @@ public interface HomeContract {
         Context getContext();
 
         void updateView(final PhotoInfo pPhotoInfo);
-
-        HomeActivity getHomeActivity();
     }
 
     interface Presenter extends BasePresenter<View> {

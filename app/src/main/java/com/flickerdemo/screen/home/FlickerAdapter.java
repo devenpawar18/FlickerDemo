@@ -17,12 +17,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrViewHolder> {
-    private static List<Photo> mPhotos;
+    private List<Photo> mPhotos;
     private int mRowLayout;
     private Context mContext;
-    private static OnListItemClickListener mOnListItemClickListener;
+    private OnListItemClickListener mOnListItemClickListener;
 
-    public static class FlickrViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class FlickrViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.image_flickr)
         ImageView mFlickrImage;
 
@@ -41,10 +41,10 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
     }
 
     public FlickerAdapter(List<Photo> pPhotos, int pRowLayout, Context pContext, final OnListItemClickListener pOnListItemClickListener) {
-        mPhotos = pPhotos;
+        this.mPhotos = pPhotos;
         this.mRowLayout = pRowLayout;
         this.mContext = pContext;
-        mOnListItemClickListener = pOnListItemClickListener;
+        this.mOnListItemClickListener = pOnListItemClickListener;
     }
 
     @Override
@@ -55,14 +55,14 @@ public class FlickerAdapter extends RecyclerView.Adapter<FlickerAdapter.FlickrVi
 
     @Override
     public void onBindViewHolder(FlickrViewHolder holder, final int position) {
-        final Photo photo = mPhotos.get(position);
-        String url = mContext.getResources().getString(R.string.flickr_image_url, String.valueOf(photo.getFarm()), photo.getServer(), photo.getId(), photo.getSecret());
-        Glide.with(mContext).load(url).centerCrop().placeholder(R.drawable.flickr_photo).crossFade().into(holder.mFlickrImage);
+        final Photo photo = this.mPhotos.get(position);
+        String url = this.mContext.getResources().getString(R.string.flickr_image_url, String.valueOf(photo.getFarm()), photo.getServer(), photo.getId(), photo.getSecret());
+        Glide.with(this.mContext).load(url).centerCrop().placeholder(R.drawable.flickr_photo).crossFade().into(holder.mFlickrImage);
     }
 
     @Override
     public int getItemCount() {
-        return mPhotos.size();
+        return this.mPhotos.size();
     }
 
     public interface OnListItemClickListener {

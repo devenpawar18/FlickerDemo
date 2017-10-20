@@ -57,7 +57,7 @@ public class HomeView extends Fragment implements HomeContract.View, FlickerAdap
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getActivity(), 3);
         this.mRecyclerView.setLayoutManager(gridLayoutManager);
-        this.mAdapter = new FlickerAdapter(this.mPhotos, R.layout.fragment_home_flicker_list_item, this.getHomeActivity(), this);
+        this.mAdapter = new FlickerAdapter(this.mPhotos, R.layout.fragment_home_flicker_list_item, this.getContext(), this);
         this.mRecyclerView.setAdapter(this.mAdapter);
 
         return view;
@@ -77,12 +77,7 @@ public class HomeView extends Fragment implements HomeContract.View, FlickerAdap
 
     @Override
     public Context getContext() {
-        return this.getView().getContext();
-    }
-
-    @Override
-    public HomeActivity getHomeActivity() {
-        return (HomeActivity) getActivity();
+        return this.getActivity();
     }
 
     @Override

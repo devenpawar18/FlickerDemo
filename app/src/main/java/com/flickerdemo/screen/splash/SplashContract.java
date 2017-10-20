@@ -12,8 +12,6 @@ public interface SplashContract {
 
     interface View extends BaseView<Presenter> {
         Context getContext();
-
-        SplashActivity getSplashActivity();
     }
 
     interface Presenter extends BasePresenter<View> {

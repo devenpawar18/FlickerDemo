@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.flickerdemo.R;
+import com.flickerdemo.screen.home.HomeActivity;
 
 import javax.inject.Inject;
 
@@ -58,11 +59,6 @@ public class SplashView extends Fragment implements SplashContract.View {
 
     @Override
     public Context getContext() {
-        return this.getView().getContext();
-    }
-
-    @Override
-    public SplashActivity getSplashActivity() {
-        return (SplashActivity) getActivity();
+        return this.getActivity();
     }
 }
