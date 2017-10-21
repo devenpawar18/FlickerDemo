@@ -2,9 +2,6 @@ package com.flickerdemo.api.service.util;
 
 import android.support.annotation.NonNull;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
 import org.greenrobot.eventbus.EventBus;
 
 import okhttp3.OkHttpClient;

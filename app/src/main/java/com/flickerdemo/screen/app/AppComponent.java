@@ -6,7 +6,6 @@ import com.flickerdemo.api.service.flicker.FlickerService;
 import com.flickerdemo.application.FlickerDemoApplication;
 import com.flickerdemo.application.scope.ApplicationScope;
 import com.flickerdemo.screen.BaseActivity;
-import com.google.gson.Gson;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -32,8 +31,6 @@ public interface AppComponent {
     public Context provideContext();
 
     public EventBus provideEventBus();
-
-    public Gson provideGson();
 
     // Managers
 

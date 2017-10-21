@@ -4,27 +4,11 @@ import android.app.Application;
 import android.content.Context;
 
 import com.flickerdemo.api.service.flicker.FlickerService;
-import com.flickerdemo.application.scope.ApplicationScope;
-import com.flickerdemo.screen.BaseActivity;
 import com.flickerdemo.screen.app.AppComponent;
 import com.flickerdemo.screen.app.AppModule;
 import com.flickerdemo.screen.app.DaggerAppComponent;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.EventBusBuilder;
 
 import javax.inject.Inject;
-
-import dagger.Component;
-import dagger.Provides;
-import okhttp3.Cache;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import timber.log.Timber;
 
 public class FlickerDemoApplication extends Application {
     public static String BASE_URL = "https://api.flickr.com/";
