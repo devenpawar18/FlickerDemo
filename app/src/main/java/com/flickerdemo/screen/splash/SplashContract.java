@@ -1,7 +1,5 @@
 package com.flickerdemo.screen.splash;
 
-import android.content.Context;
-
 import com.flickerdemo.screen.BasePresenter;
 import com.flickerdemo.screen.BaseView;
 
@@ -11,12 +9,10 @@ import com.flickerdemo.screen.BaseView;
 public interface SplashContract {
 
     interface View extends BaseView<Presenter> {
-        Context getContext();
+
     }
 
     interface Presenter extends BasePresenter<View> {
-        void takeView(SplashContract.View pSplashView);
 
-        void dropView();
     }
 }

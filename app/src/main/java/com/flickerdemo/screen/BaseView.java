@@ -1,5 +1,7 @@
 package com.flickerdemo.screen;
 
+import android.content.Context;
+
 /**
  * Base View to link presenter
  *
@@ -7,5 +9,5 @@ package com.flickerdemo.screen;
  */
 
 public interface BaseView<T> {
-
+    Context getContext();
 }
